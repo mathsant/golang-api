@@ -1,18 +1,10 @@
 package entity
 
 import (
-	"errors"
 	"time"
 
+	internalErrors "github.com/mathsant/golang-api/internal/errors"
 	"github.com/mathsant/golang-api/pkg/entity"
-)
-
-var (
-	ErrIDIsRequired    = errors.New("id is required")
-	ErrIDIsInvalid     = errors.New("invalid id")
-	ErrNameIsRequired  = errors.New("name is requrired")
-	ErrPriceIsRequired = errors.New("price is requrired")
-	ErrPriceIsInvalid  = errors.New("invalid price")
 )
 
 type Product struct {
@@ -38,19 +30,19 @@ func NewProduct(name string, price int) (*Product, error) {
 
 func (p *Product) Validate() error {
 	if p.ID.String() == "" {
-		return ErrIDIsRequired
+		return internalErrors.ErrIDIsRequired
 	}
 	if _, err := entity.ParseID(p.ID.String()); err != nil {
-		return ErrIDIsInvalid
+		return internalErrors.ErrIDIsInvalid
 	}
 	if p.Name == "" {
-		return ErrNameIsRequired
+		return internalErrors.ErrNameIsRequired
 	}
 	if p.Price == 0 {
-		return ErrPriceIsRequired
+		return internalErrors.ErrPriceIsRequired
 	}
 	if p.Price < 0 {
-		return ErrPriceIsInvalid
+		return internalErrors.ErrPriceIsInvalid
 	}
 	return nil
 }

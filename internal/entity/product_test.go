@@ -3,6 +3,7 @@ package entity
 import (
 	"testing"
 
+	internalErrors "github.com/mathsant/golang-api/internal/errors"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -19,21 +20,21 @@ func TestProductWhenNameIsRequired(t *testing.T) {
 	p, err := NewProduct("", 10)
 	assert.NotNil(t, err)
 	assert.Nil(t, p)
-	assert.Equal(t, ErrNameIsRequired, err)
+	assert.Equal(t, internalErrors.ErrNameIsRequired, err)
 }
 
 func TestProductWhenPriceIsRequired(t *testing.T) {
 	p, err := NewProduct("Canela", 0)
 	assert.NotNil(t, err)
 	assert.Nil(t, p)
-	assert.Equal(t, ErrPriceIsRequired, err)
+	assert.Equal(t, internalErrors.ErrPriceIsRequired, err)
 }
 
 func TestProductWhenPriceIsInvalid(t *testing.T) {
 	p, err := NewProduct("Canela", -10)
 	assert.NotNil(t, err)
 	assert.Nil(t, p)
-	assert.Equal(t, ErrPriceIsInvalid, err)
+	assert.Equal(t, internalErrors.ErrPriceIsInvalid, err)
 }
 
 func TestProductValidate(t *testing.T) {
