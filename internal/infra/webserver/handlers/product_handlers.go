@@ -121,6 +121,11 @@ func (h *ProductHandler) FindAllProducts(w http.ResponseWriter, r *http.Request)
 	page := r.URL.Query().Get("page")
 	limit := r.URL.Query().Get("limit")
 
+	// PEGAR DADOS DO TOKEN
+	// _, claims, _ := jwtauth.FromContext(r.Context())
+	// teste := claims["sub"].(string)
+	// log.Printf("Dados do token: %s", teste)
+
 	pageInt, err := strconv.Atoi(page)
 	if err != nil {
 		pageInt = 0
